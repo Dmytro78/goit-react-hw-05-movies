@@ -1,40 +1,47 @@
-import React, { Component } from "react";
+import { useState } from "react";
 import css from "./Form.module.css";
 
-class Form extends Component {
-  state = {
-    name: "",
-    number: "",
-  };
+export default function Form ({ onSubmit }) {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
 
- handleInputChange = (e) => {
+ const handleInputChange = (e) => {
     const { name, value } = e.currentTarget;
-    this.setState({ [name]: value });
+    
+   switch (name) {
+     case "name":
+       setName(value);
+       break;
+     case "number":
+       setNumber(value);
+       break;
+     
+     default:
+       return;
+   }
  };
   
-  submit = (e) => {
-    e.preventDefault();
-    this.reset();
-    this.props.onSubmit(this.state);
-  }
+const handleSubmit = (e) => {
+  e.preventDefault();
+  onSubmit(name, number);
+   reset();
+};
 
-  reset = () => {
-    this.setState({ name: "", number: "" });
+  const reset = () => {
+    setName("");
+    setNumber("");
   };
 
- 
-
-  render() {
     return (
-      <form onSubmit={this.submit} className={css.form}>
+      <form onSubmit={handleSubmit} className={css.form}>
         <label className={css.label}>
           Name
           <input
             type="text"
             name="name"
             className={css.input}
-            value={this.state.name}
-            onChange={this.handleInputChange}
+            value={name}
+            onChange={handleInputChange}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
             required
@@ -46,8 +53,8 @@ class Form extends Component {
             type="tel"
             name="number"
             className={css.input}
-            value={this.state.number}
-            onChange={this.handleInputChange}
+            value={number}
+            onChange={handleInputChange}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
             required
@@ -58,6 +65,4 @@ class Form extends Component {
         </button>
       </form>
     );
-  }
 }
-export default Form;

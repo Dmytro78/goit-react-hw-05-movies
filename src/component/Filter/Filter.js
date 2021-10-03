@@ -1,19 +1,18 @@
 import PropTypes from "prop-types";
 
-const Filter = ({ filterInput, filterValue }) => {
+export default function Filter ({ value, onChange }) {
   return (
     <label>
       <input
         type="text"
-        name="filter"
-        value={filterValue}
-        onChange={filterInput}
+        name="name"
+        value={value}
+        onChange={onChange}
       ></input>
     </label>
   );
 };
 
-export default Filter;
 
 Filter.propTypes = {
   filterInput: PropTypes.func,
