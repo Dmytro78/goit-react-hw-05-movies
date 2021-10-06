@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect} from "react-router-dom";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import Container from "../Container/Container";
 import LoaderView from "../Loader/Loader";
@@ -32,6 +32,7 @@ function App() {
           <Route path="/movies/:movieId">
             <MovieDetailsView />
           </Route>
+          <Redirect to="/" />
         </Switch>
       </Suspense>
     </Container>
